@@ -1,0 +1,6 @@
+---
+##
+## New variables for Ubuntu AWS server management
+##
+
+ansible_ssh_private_key_file: ~/.ssh/SwarmClusterNode.pem

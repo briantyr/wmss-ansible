@@ -1,0 +1,32 @@
+---
+# tasks file for ubuntu_upgrade
+- name: Text output
+  debug:
+    msg: "This server is going to be upgraded to the latest version with do-release-upgrade automated."
+  when: ansible_distribution == 'Ubuntu'
+
+- name: Upgrade all packages to the latest version
+  apt: update_cache=yes upgrade=full
+  when: ansible_distribution == 'Ubuntu'
+
+- name: Remove the EOL message of the day if one exists.
+  file:
+    path: "{{ item }}"
+    state: absent
+  with_items:
+    - /etc/update-motd.d/99-esm
+    - /run/motd.dynamic
+  when: ansible_distribution == 'Ubuntu'
+
+- name: Ensure update-manager-core is installed.
+  apt: name=update-manager-core state=present
+  when: ansible_distribution == 'Ubuntu'
+
+- name: Run the Ubuntu upgrade in-place.
+  shell: do-release-upgrade -f DistUpgradeViewNonInteractive
+  when: ansible_distribution == 'Ubuntu'
+
+- name: Reboot the server, wait time set to 600s
+  reboot:
+  when: ansible_distribution == 'Ubuntu'
+ 

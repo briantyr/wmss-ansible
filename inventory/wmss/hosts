@@ -1,0 +1,33 @@
+
+# WMSS Nodes
+
+[all:children]
+managers
+workers
+
+[managers]
+manager-1.wmss.io
+manager-2.wmss.io
+manager-3.wmss.io
+
+[workers]
+worker-1.test.wmss.io
+worker-2.test.wmss.io
+worker-3.test.wmss.io
+
+# Set the following variable in order to use ~/.ssh/config setup where 
+# we SSH through manager-1, using it as a proxy to the worker nodes.
+[workers:vars]
+ansible_ssh_common_args='-o ProxyCommand="ssh  -W %h:%p -q btaylor@manager-1"'
+
+[us-east-1a:children]
+manager-1.wmss.io
+worker-1.test.tmss.io
+
+[us-east-1b:children]
+manager-2.wmss.io
+worker-2.test.wmss.io
+
+[us-east-1c:children]
+manager-3.wmss.io
+worker-3.test.wmss.io

@@ -1,0 +1,17 @@
+---
+# tasks file for adhoc
+- name: Execute command to return /etc/debian_version output
+  shell: cat /etc/debian_version
+  register: debian_version
+  when: ansible_distribution == 'Ubuntu'
+
+- debug: msg="{{ debian_version.stdout }}"
+  when: ansible_distribution == 'Ubuntu'
+
+- name: See output of lsb_release -a
+  shell: lsb_release -a
+  register: lsb_release
+  when: ansible_distribution == 'Ubuntu'
+
+- debug: msg="{{ lsb_release.stdout }}"
+  when: ansible_distribution == 'Ubuntu'

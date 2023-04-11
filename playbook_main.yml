@@ -1,0 +1,14 @@
+---
+- hosts: all
+  become: yes
+  remote_user: ubuntu
+  become_user: root
+  vars:
+    ansible_ssh_private_key_file: ~/.ssh/SwarmClusterNode.pem
+  roles:
+    - role: apt
+      tags: apt
+    - role: adhoc
+      tags: adhoc
+    - role: ubuntu_upgrade
+      tags: ubuntu_upgrade
