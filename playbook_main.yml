@@ -10,5 +10,7 @@
       tags: apt
     - role: adhoc
       tags: adhoc
-    - role: ubuntu_upgrade
-      tags: ubuntu_upgrade
+        #    - role: update_aufs_docker
+        #      tags: update_aufs_docker
+        #- role: ubuntu_upgrade
+        #  tags: ubuntu_upgrade

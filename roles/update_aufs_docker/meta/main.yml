@@ -1,7 +1,7 @@
 galaxy_info:
-  author: Brian Taylor
-  description: A simple APT playbook for managing Docker / Swarm package requirements and updates
-  company: N/A
+  author: your name
+  description: your role description
+  company: your company (optional)
 
   # If the issue tracker for your role is not on github, uncomment the
   # next line and provide a value

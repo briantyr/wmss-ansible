@@ -14,7 +14,7 @@ fi
 
 echo ""
 echo "#################################"
-echo "# Setting up Ansible Basesystem #"
+echo "# Setting up Ansible VirtualEnv #"
 echo "#################################"
 echo ""
 
@@ -36,22 +36,27 @@ echo "# This virtualenv was created with Python 3.11.2 (homebrew). #"
 
 export VENV_NAME="ansible-test-tmp"
 function install_pip() {
-	mkdir -p "$HOME/.virtualenvs"
+	mkdir -p "$HOME/.virtualenvs" 
+	if [[ -d "$HOME/.virtualenvs/${VENV_NAME}" ]]; then
+		echo "VirtualEnv already exists at '$HOME/.virtualenvs/${VENV_NAME}'"
+		return 0
+	fi
+
 	python3 -m venv "$HOME/.virtualenvs/${VENV_NAME}"
 	if [[ $? -ne 0 ]]; then
 		echo "# Failed to create the virtualenv.  Exiting.. #"
-		exit 1
+		return 1
 	fi
 	source "$HOME/.virtualenvs/${VENV_NAME}/bin/activate"
 	if [[ $? -ne 0 ]]; then
 		echo "# Failed to source into the virtualenv, exiting. #"
-		exit 1
+		return 1
 	fi
 	pip3 install -U -r requirements.txt
 }
 
 ## If needed, run the install function to setup the virtualenv.
-install_pip
+install_pip && echo "VirtualEnv is ready to use"  || echo "Failed to create/source virtualenv"
 
 source "$HOME/.virtualenvs/${VENV_NAME}/bin/activate"
 

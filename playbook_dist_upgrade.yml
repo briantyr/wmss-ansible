@@ -1,0 +1,11 @@
+---
+- hosts: all
+  become: yes
+  remote_user: ubuntu
+  become_user: root
+  vars:
+    ansible_ssh_private_key_file: ~/.ssh/SwarmClusterNode.pem
+  # Adhoc run role to remove /var/lib/docker/aufs first, then continue with regular main playbook.
+  roles:
+    - role: update_aufs_docker
+      tags: update_aufs_docker

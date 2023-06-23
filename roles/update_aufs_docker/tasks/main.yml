@@ -1,0 +1,22 @@
+---
+- name: Stop docker
+  service:
+    name: docker
+    state: stopped
+
+      #- name: Backup /var/lib/docker/
+      #  copy:
+      #    src: /var/lib/docker
+      #    dest: /var/lib/docker.bak
+      #    remote_src: yes
+      #    directory_mode: yes
+
+- name: Remove /var/lib/docker/aufs/
+  file:
+    path: /var/lib/docker/aufs
+    state: absent
+
+- name: Start docker-ce service
+  service:
+    name: docker
+    state: started
