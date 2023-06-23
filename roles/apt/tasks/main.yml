@@ -1,15 +1,18 @@
 ---
 - name: Install latest package
   apt:
-    name: "{{ item }}"
+    # name: "{{ item }}"
+    name: "{{ apt.install_pkgs }}"
     state: latest
     update_cache: yes
-  loop:
-    - docker-ce
-    - rpm
-    - python3-venv
-    # - python3-ipython
-    # - ipython3
+  # loop:
+  #   - docker-ce
+  #   - rpm
+  #   - python3-venv
+  when: ansible_distribution == 'Ubuntu'
+
+- name: Import task for adding Docker apt repo & installing docker-ce
+  import_tasks: docker-ce.yml
   when: ansible_distribution == 'Ubuntu'
 
 - name: Update all packages to the latest
@@ -19,21 +22,16 @@
     update_cache: yes
   when: ansible_distribution == 'Ubuntu'
 
-
 - name: Clean all apt packages
   apt:
     clean: yes
   when: ansible_distribution == 'Ubuntu'
-
-
-
 # - name: Upgrading Software
 #   expect:
 #     command: do-release-upgrade
 #     responses:
 #       'First Question in the prompt' : 'y'
 #       'Second Question in the prompt' : 'y'
-
 
 # - name: Upgrade entire distribution
 #   apt:

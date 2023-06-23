@@ -1,2 +1,15 @@
 ---
 # vars file for apt
+release_name: jammy #22.04.2 LTS
+
+apt:
+  install_pkgs:
+    - apt-transport-https
+    - ca-certificates
+    - curl
+    - software-properties-common
+    - python3-pip
+    - virtualenv
+    - python3-setuptools
+    - rpm
+    - python3-venv
